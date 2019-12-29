@@ -9,9 +9,9 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 for i in range(1, 5):
     for j in range(1, 5):
-        user_ref = db.collection(u'cities').document(u'Challenges')
+        user_ref = db.collection(u'codes').document(u'challenges')
         doc_ref = user_ref.collection(u'WeeklyChallenge ' + str(i)).document(
-            u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .' + str(j))
+            u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .')
         doc_ref.set({
             u'Question': u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .',
             u'Answer': '''

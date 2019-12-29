@@ -7,10 +7,14 @@ cred = credentials.Certificate('certificate.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-week_ref = db.collection(u'weeks').document(u'challenges')
-ques_ref = db.collection(u'WeeklyChallenge 1').document(u'ques')
-week_ref.set({u'number': ['WeeklyChallenge ' + str(j) for j in range(1, 5)]})
-ques_ref.set({u'question': [u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .',
-                            u'test',
-                            u'test2',
-                            u'test3']})
+# week_ref = db.collection(u'weeks').document(u'challenges')
+# ques_ref = db.collection(u'WeeklyChallenge 1').document(u'ques')
+# week_ref.set({u'number': ['WeeklyChallenge ' + str(j) for j in range(1, 5)]})
+# ques_ref.set({u'question': [u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .',
+#                             u'test',
+#                             u'test2',
+#                             u'test3']})
+users_ref = db.collection('Codes').document('Challenges').collection(str(u'WeeklyChallenge 1')).document(str(u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .1'))
+doc = users_ref.get()
+code = doc.to_dict()['Answer']
+print(code)

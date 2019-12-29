@@ -21,13 +21,14 @@ def findQues(i):
 
 
 def typeCode(challenge, program):
-    users_ref = db.collection(challenge).document(program)
+    users_ref = db.collection('Codes').document('Challenges').collection(challenge).document(program)
     doc = users_ref.get()
     code = doc.to_dict()['Answer']
-    time.sleep(5)
-    pyautogui.typewrite(code)
-    for i in range(1, 50):
-        pyautogui.keyDown('Delete')
+    print(code)
+    # time.sleep(5)
+    # pyautogui.typewrite(code)
+    # for i in range(1, 50):
+    #     pyautogui.keyDown('Delete')
 
 
 cred = credentials.Certificate('certificate.json')
@@ -45,6 +46,7 @@ mainframe.rowconfigure(1, weight=1)
 mainframe.pack(pady=100, padx=100)
 
 tkvar = StringVar(root)
+tkvar2 = StringVar(root)
 
 # Dictionary with options
 choicesWeek = findWeeks()
@@ -60,14 +62,15 @@ def change_dropdown(*args):
     selected = tkvar.get()
     print(tkvar.get())
     quesChoices = findQues(selected)
-    tkvar.set('Select Question')  # set the default option
+    print(quesChoices)
+    tkvar2.set('Select Question')  # set the default option
 
-    quesMenu = OptionMenu(mainframe, tkvar, *quesChoices)
+    quesMenu = OptionMenu(mainframe, tkvar2, *quesChoices)
     Label(mainframe, text="Choose the Question").grid(row=4, column=1)
     quesMenu.grid(row=5, column=1)
+    typeCode('WeeklyChallenge 1', 'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .')
 
 
 # link function to change dropdown
 tkvar.trace('w', change_dropdown)
-
 root.mainloop()
