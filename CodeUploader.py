@@ -7,104 +7,139 @@ cred = credentials.Certificate('certificate.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-for i in range(1, 5):
-    for j in range(1, 5):
-        user_ref = db.collection(u'codes').document(u'challenges')
-        doc_ref = user_ref.collection(u'WeeklyChallenge ' + str(i)).document(
-            u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .')
-        doc_ref.set({
-            u'Question': u'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .',
-            u'Answer': '''
+
+user_ref = db.collection(u'codes').document(u'challenges')
+doc_ref = user_ref.collection(u'WeeklyChallenge 2').document(
+    u'Area Perimeter')
+doc_ref.set({
+    u'Question': u'Area Perimeter',
+    u'Answer': '''
 import java.util.Scanner;
 
-class Person {
+abstract class Shape {
+int length;
+int width;
+int radius;
 
-private String name;
+abstract void calculatePerimeter();
 
-Person(String name) {
-this.name = name;
+abstract void calculateArea();
 }
 
-String getName() {
-return name;
+class Square extends Shape {
+public Square(int width) {
+this.width = width;
 }
 
-public void setName(String name) {
-this.name = name;
+@Override
+void calculatePerimeter() {
+double perimeter = width * 4;
+System.out.printf("Perimeter : %.2f\\n", perimeter);
 }
 
-public void DisplayName(){
-System.out.println(name);
+@Override
+void calculateArea() {
+double area = width * width;
+System.out.printf("Area : %.2f\\n", area);
 }
 }
 
-class Staff extends Person{
-int getStaffID() {
-return staffID;
+class Rectangle extends Shape {
+public Rectangle(int width, int length) {
+this.width = width;
+this.length = length;
 }
 
-public void setStaffID(int staffID) {
-this.staffID = staffID;
+@Override
+void calculatePerimeter() {
+double perimeter = width * 2 + length * 2;
+System.out.printf("Perimeter : %.2f\\n", perimeter);
 }
 
-Staff(String name, int staffID) {
-super(name);
-this.staffID = staffID;
+@Override
+void calculateArea() {
+double area = width * length;
+System.out.printf("Area : %.2f\\n", area);
+}
 }
 
-private int staffID;
+class Circle extends Shape {
+public Circle(int radius) {
+this.radius = radius;
 }
 
-class TemporaryStaff extends Staff {
-TemporaryStaff(String name, int staffID, int days, int hours) {
-super(name, staffID);
-this.days = days;
-this.hours = hours;
+@Override
+void calculatePerimeter() {
+double perimeter = 2 * 3.141592 * radius;
+System.out.printf("Circumference : %.2f\\n", perimeter);
 }
 
-private int getDays() {
-return days;
+@Override
+void calculateArea() {
+double area = 3.141592 * radius * radius;
+System.out.printf("Area : %.2f\\n", area);
+}
 }
 
-public void setDays(int days) {
-this.days = days;
+class Triangle extends Shape {
+public Triangle(int radius, int length, int width) {
+this.radius = radius;
+this.width = width;
+this.length = length;
 }
 
-private int getHours() {
-return hours;
+@Override
+void calculatePerimeter() {
+double perimeter = length + width + radius;
+System.out.printf("Perimeter : %.2f\\n", perimeter);
 }
 
-public void setHours(int hours) {
-this.hours = hours;
+@Override
+void calculateArea() {
+int p = (radius + width + length) / 2;
+double area = Math.sqrt((p - radius) * (p - width) * (p - length) * p);
+System.out.printf("Area : %.2f\\n", area);
+}
 }
 
-private int days;
-private int hours;
+class Main4 {
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+char choice = scanner.next().charAt(0);
 
-private int salary() {
-return days * hours * 50;
-}
+switch (choice) {
+case 'S':
+int len = scanner.nextInt();
+Square square = new Square(len);
+square.calculatePerimeter();
+square.calculateArea();
+break;
 
-void display() {
-System.out.println("Name : " + getName());
-System.out.println("Staff Id : " + getStaffID());
-System.out.println("No. of Days : " + getDays());
-System.out.println("No. of Hours Worked: " + getHours());
-System.out.println("Total Salary : " + salary());
-}
+case 'R':
+int width = scanner.nextInt();
+int length = scanner.nextInt();
+Rectangle rectangle = new Rectangle(width, length);
+rectangle.calculatePerimeter();
+rectangle.calculateArea();
+break;
 
-}
-class main{
-public static void main(String args[]){
-Scanner scanner = new Scanner(System.in).useDelimiter("\\n");
-String n = scanner.nextLine();
-int id = scanner.nextInt();
-int days = scanner.nextInt();
-int hour = scanner.nextInt();
-TemporaryStaff st = new TemporaryStaff(n, id, days, hour);
-st.display();
-}
+case 'C':
+int rad = scanner.nextInt();
+Circle circle = new Circle(rad);
+circle.calculatePerimeter();
+circle.calculateArea();
+break;
 
+case 'T':
+int a = scanner.nextInt();
+int b = scanner.nextInt();
+int c = scanner.nextInt();
+Triangle triangle = new Triangle(a, b, c);
+triangle.calculatePerimeter();
+triangle.calculateArea();
+break;
+}
+}
 }
 '''
         })

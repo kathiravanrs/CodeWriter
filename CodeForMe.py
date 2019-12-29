@@ -71,8 +71,17 @@ def change_dropdown(*args):
     quesMenu.grid(row=5, column=1)
 
     Menu = Button(mainframe, text='Start', command=lambda: typeCode(tkvar.get(), tkvar2.get()))
+    Label(mainframe, text="").grid(row=6, column=1)
     Menu.grid(row=7, column=1)
+    Label(mainframe, text="").grid(row=8, column=1)
+    Label(mainframe, text="").grid(row=9, column=1)
+    Label(mainframe, text="").grid(row=10, column=1)
 
+    Label(mainframe, text="Keep the online coding portal ready before clicking START.").grid(row=11, column=1)
+    Label(mainframe, text="After clicking START, quickly move to the portal and click on the coding Area").\
+        grid(row=12, column=1)
+
+    Label(mainframe, text="within 5 seconds.").grid(row=13, column=1)
 
 # link function to change dropdown
 tkvar.trace('w', change_dropdown)
