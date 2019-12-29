@@ -7,14 +7,12 @@ from firebase_admin import firestore
 
 
 def findWeeks():
-    # [START get_full_collection]
     docs = db.collection(u'weeks').stream()
     for doc in docs:
         return doc.to_dict()['number']
 
 
 def findQues(i):
-    # [START get_full_collection]
     docs = db.collection(str(i)).stream()
     for doc in docs:
         return doc.to_dict()['question']
