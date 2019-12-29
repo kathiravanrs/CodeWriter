@@ -21,14 +21,13 @@ def findQues(i):
 
 
 def typeCode(challenge, program):
-    users_ref = db.collection('Codes').document('Challenges').collection(challenge).document(program)
+    users_ref = db.collection('codes').document('challenges').collection(str(challenge)).document(str(program))
     doc = users_ref.get()
     code = doc.to_dict()['Answer']
-    print(code)
-    # time.sleep(5)
-    # pyautogui.typewrite(code)
-    # for i in range(1, 50):
-    #     pyautogui.keyDown('Delete')
+    time.sleep(5)
+    pyautogui.typewrite(code)
+    for i in range(1, 50):
+        pyautogui.keyDown('Delete')
 
 
 cred = credentials.Certificate('certificate.json')
@@ -37,6 +36,8 @@ db = firestore.client()
 
 root = Tk()
 root.title("Code For Me")
+root.minsize(400, 400)
+
 
 # Add a grid
 mainframe = Frame(root)
@@ -68,7 +69,9 @@ def change_dropdown(*args):
     quesMenu = OptionMenu(mainframe, tkvar2, *quesChoices)
     Label(mainframe, text="Choose the Question").grid(row=4, column=1)
     quesMenu.grid(row=5, column=1)
-    typeCode('WeeklyChallenge 1', 'Create 4 class Person, Staff, TemporaryStaff and a Main class . . .')
+
+    Menu = Button(mainframe, text='Start', command=lambda: typeCode(tkvar.get(), tkvar2.get()))
+    Menu.grid(row=7, column=1)
 
 
 # link function to change dropdown
